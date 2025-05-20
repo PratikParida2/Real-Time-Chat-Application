@@ -106,7 +106,7 @@ const authStore=create((set,get)=>({
         const {userAuth}=get();
         if(!userAuth || get().socket?.connected)
             return;
-        const socketIo=io(BASE_URL,{
+        const socketIo=io(BASE_URL,{ 
             query:{
                 userId:userAuth._id
             }
