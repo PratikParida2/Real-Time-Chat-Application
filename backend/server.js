@@ -23,19 +23,23 @@ app.use(cors({
 }));
 app.use(cookieParser());
 dotenv.config();
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, '../Frontend/dist')));
-
-  app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../Frontend/dist/index.html'));
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "../Frontend","dist")));
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "../Frontend", "dist", "index.html"));
   });
 }
 app.get('/',(req,res)=>{
     res.send('<h1>Real Time Chat Application</h1>')
 })
 
+
+console.log("before user route");
+
 app.use('/api/user',userRoute);
+console.log("after user route");
+
 app.use('/api/message',messageRoute);
-httpServer.listen(process.env.PORT,()=>{
+httpServer.listen(process.env.PORT||8050,()=>{
     console.log("Server Is Started At Port Number "+process.env.PORT);
 })
