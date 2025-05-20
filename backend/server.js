@@ -16,7 +16,7 @@ app.use(bodyParser.json({ limit: '10mb' })); // or more like '20mb'
 app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }));
 app.use(express.json());
 app.use(cors({
-    origin:'http://localhost:7050',
+    origin:'https://real-time-chat-application-frontend-sooty.vercel.app',
     credentials:true
 }));
 app.use(cookieParser());
