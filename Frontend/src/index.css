@@ -1,0 +1,21 @@
+@import "tailwindcss";
+@plugin "daisyui";
+/* Dark Theme */
+.dark body {
+  background-color: #e8170d;
+  color: #f9fafb;
+}
+
+/* Theme Toggle Button */
+.theme-toggle-button {
+  background-color: #d1d5db;
+  border: none;
+  padding: 10px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.dark .theme-toggle-button {
+  background-color: #374151;
+}
