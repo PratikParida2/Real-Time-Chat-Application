@@ -102,28 +102,51 @@ const authStore=create((set,get)=>({
             set({isUpdatingProfile:false})
         }
     },
-    socketConnect:()=>{
-        const {userAuth}=get();
-        if(!userAuth || get().socket?.connected)
-            return;
-        const socketIo=io(BASE_URL,{ 
-            query:{
-                userId:userAuth._id
-            }
-        });
-        socketIo.connect();
-        set({socket:socketIo});
-        socketIo.on('getOnlineUsers',(onlineUser)=>{
-            console.log(onlineUser);
-            set({onlineUsers:onlineUser})
-        })   
-    },
-socketDisconnet: () => {
-    get().socket.disconnect(); 
-    if (get().socket?.connected) {
-        get().socket.disconnect(); 
-    }
+//     socketConnect:()=>{
+//         const {userAuth}=get();
+//         if(!userAuth || get().socket?.connected)
+//             return;
+//         const socketIo=io(BASE_URL,{ 
+//             query:{
+//                 userId:userAuth._id
+//             }
+//         });
+//         socketIo.connect();
+//         set({socket:socketIo});
+//         socketIo.on('getOnlineUsers',(onlineUser)=>{
+//             console.log(onlineUser);
+//             set({onlineUsers:onlineUser})
+//         })   
+//     },
+// socketDisconnet: () => {
+//     get().socket.disconnect(); 
+//     if (get().socket?.connected) {
+//         get().socket.disconnect(); 
+//     }}
+socketConnect: () => {
+    const { userAuth, socket } = get();
+    if (!userAuth || socket) return;
 
+    const socketIo = io(BASE_URL, {
+        query: { userId: userAuth._id },
+        withCredentials: true,
+    });
+
+    set({ socket: socketIo });
+
+    socketIo.on('getOnlineUsers', (onlineUsers) => {
+        console.log("Online users:", onlineUsers);
+        set({ onlineUsers });
+    });
+},
+
+socketDisconnet: () => {
+    const socket = get().socket;
+    if (socket && socket.connected) {
+        socket.off(); // clean up all event listeners
+        socket.disconnect();
+        set({ socket: null, onlineUsers: [] });
+    }
 }
 }))
 export default authStore;
