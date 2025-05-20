@@ -6,7 +6,7 @@ const httpServer=http.createServer(app);
 const io=new Server(httpServer,
 {
     cors:{
-        origin:["https://real-time-chat-application-frontend-olive.vercel.app"],
+        origin:["https://real-time-chat-application-frontend-olive.vercel.app","http://localhost:7050"],
         credentials:true
     }
 }
