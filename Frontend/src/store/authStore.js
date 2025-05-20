@@ -3,7 +3,7 @@ import axiosInstance from '../lib/axios';
 import { toast } from 'react-toastify';
 import validator from 'validator'
 import {io} from 'socket.io-client'
-const BASE_URL="http://localhost:8050"
+const BASE_URL="https://real-time-chat-application-backend-kappa.vercel.app"
 const authStore=create((set,get)=>({
     userAuth:null,
     isSignUp:false,
