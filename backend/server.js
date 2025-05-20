@@ -10,7 +10,7 @@ import verifyToken from './middleware/Authentication.js'
 import messageRoute from './routes/messageRoute.js'
 import bodyParser from 'body-parser'
 import { httpServer,io,app } from './lib/socket.js'
-const __dirname = path.resolve();
+
 connectDB();
 
 // If using body-parser
@@ -23,12 +23,7 @@ app.use(cors({
 }));
 app.use(cookieParser());
 dotenv.config();
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "../Frontend","dist")));
-  app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "../Frontend", "dist", "index.html"));
-  });
-}
+
 app.get('/',(req,res)=>{
     res.send('<h1>Real Time Chat Application</h1>')
 })
